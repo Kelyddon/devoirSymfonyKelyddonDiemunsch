@@ -59,8 +59,7 @@ class DefaultController extends AbstractController
         }
         $qb->orderBy('b.createdAt', 'DESC');
         $books = $qb->getQuery()->getResult();
-        // Utiliser les genres prédéfinis de Book::GENRES pour le filtre
-        $genres = array_keys(Book::GENRES);
+        $genres = $bookRepository->findDistinctGenres();
         return $this->render('default/home.html.twig', [
             'books' => $books,
             'genres' => $genres,
@@ -68,8 +67,8 @@ class DefaultController extends AbstractController
             'search' => $search,
         ]);
     }
-
-    # -- Routes / Pages pour mes catégories
+    #[Route('/books/add', name: 'book_add', methods: ['GET', 'POST'])]
+    // -- Routes / Pages pour mes catégories
 
     #[Route('/{slug:category}', name: 'default_category', methods: ['GET'])]
     public function category(Category $category): Response

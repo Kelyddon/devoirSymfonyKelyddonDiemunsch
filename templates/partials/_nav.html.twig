@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('default_home') }}">ActuNews</a>
+        <a class="navbar-brand" href="{{ path('default_home') }}">BookManager</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,21 +11,6 @@
                     <a class="nav-link active"
                        aria-current="page"
                        href="{{ path('default_home') }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('default_category', {'slug':'politique'}) }}">Politique</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('default_category', {'slug':'economie'}) }}">Economie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('default_category', {'slug':'culture'}) }}">Culture</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('default_category', {'slug':'loisirs'}) }}">Loisirs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('default_category', {'slug':'sport'}) }}">Sport</a>
                 </li>
             </ul>
             <ul class="navbar-nav float-right">
