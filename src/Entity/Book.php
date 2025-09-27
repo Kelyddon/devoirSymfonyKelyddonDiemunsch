@@ -39,6 +39,18 @@ class Book
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    public const GENRES = [
+        'Roman' => 'roman',
+        'Essai' => 'essai',
+        'Biographie' => 'biographie',
+        'Science-fiction' => 'science-fiction',
+        'Poésie' => 'poesie',
+        'Fantastique' => 'fantastique',
+        'Policier' => 'policier',
+        'Historique' => 'historique',
+        'Jeunesse' => 'jeunesse',
+    ];
+
     public function getId(): ?int
     {
         return $this->id;
