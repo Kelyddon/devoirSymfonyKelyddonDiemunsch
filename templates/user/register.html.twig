@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Créer un nouveau compte{% endblock %}
+
+{% block body %}
+    <main>
+        <!-- Titre de la page -->
+        <div class="p-3 mx-auto text-center">
+            <h1 class="display-4">Créer un nouveau compte</h1>
+        </div>
+
+        <!-- Contenu de la page -->
+        <div class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto">
+                        {{ form(form, {'attr': {'novalidate':'novalidate'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

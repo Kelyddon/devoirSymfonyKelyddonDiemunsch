@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('default_home') }}">ActuNews</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav text-center mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       aria-current="page"
+                       href="{{ path('default_home') }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('default_category', {'slug':'politique'}) }}">Politique</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('default_category', {'slug':'economie'}) }}">Economie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('default_category', {'slug':'culture'}) }}">Culture</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('default_category', {'slug':'loisirs'}) }}">Loisirs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('default_category', {'slug':'sport'}) }}">Sport</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav float-right">
+
+                {# {{ dump(app.user) }} #}
+                {% if app.user %}
+
+                    <span class="navbar-text mx-2">
+                        Bienvenue {{ app.user.firstname }} 😊 -
+                    </span>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)    ">Administration</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_AUTHOR') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('book_add') }}">Ajouter un livre</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_register') }}">Inscription</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>

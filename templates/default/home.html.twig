@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <main>
+        <!-- Titre de la page -->
+        <div class="p-3 mx-auto text-center">
+            <h1 class="display-4">Actunews</h1>
+        </div>
+
+        <!-- Filtrage par genre -->
+        <form method="get" action="{{ path('default_home') }}" class="mb-4">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <select name="genre" class="form-select">
+                        <option value="">Tous les genres</option>
+                        {% for genre in genres %}
+                            <option value="{{ genre }}" {% if genre == selected_genre %}selected{% endif %}>{{ genre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="search" class="form-control" placeholder="Rechercher un titre..." value="{{ search }}">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Contenu de la page -->
+        <div class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    {% for book in books %}
+                        {#
+                            Pour chaque livre retourné par la BDD
+                            On inclut une card pour afficher le livre
+                            Ex. {{ dump(book) }}
+                        #}
+                        {% include 'partials/_card.html.twig' with { 'book': book } %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

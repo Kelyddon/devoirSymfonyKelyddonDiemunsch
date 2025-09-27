@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <article class="py-5">
+                    <!-- En-tête de l'article -->
+                    <header class="mb-5">
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2">{{ book.category.name }}</span>
+                            <small class="text-muted">{{ book.createdAt | date('d/m/Y') }}</small>
+                        </div>
+                        <h1 class="display-4 fw-bold mb-3">
+                            {{ book.title }}
+                        </h1>
+                        <div class="d-flex align-items-center">
+                            <img src="{{ book.coverImage }}" alt="Auteur" class="rounded-circle me-3">
+                            <div>
+                                <strong class="d-block">{{ book.author }}</strong>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Image principale -->
+                    <figure class="mb-5">
+                        <img src="{{ book.coverImage }}"
+                             alt="{{ book.title }}" class="img-fluid rounded shadow">
+                        <figcaption class="figure-caption text-center mt-2">
+                            {{ book.title }}
+                        </figcaption>
+                    </figure>
+
+                    <!-- Contenu de l'article -->
+                    <div class="article-content">
+                        {{ book.description | raw }}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

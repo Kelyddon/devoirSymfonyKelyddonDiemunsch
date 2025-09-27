@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un livre{% endblock %}
+
+{#
+    Rendu éditeur WYSIWYG Jodit
+    https://xdsoft.net/jodit/docs/docs/getting-started.html
+#}
+{% block stylesheets %}
+    {{ parent() }}
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/jodit@latest/es2021/jodit.fat.min.css"
+    />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/jodit@latest/es2021/jodit.fat.min.js"></script>
+    <script>
+        Jodit.make('#book_description');
+    </script>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <!-- Titre de la page -->
+        <div class="p-3 mx-auto text-center">
+            <h1 class="display-4">Ajouter un livre</h1>
+        </div>
+
+        <!-- Contenu de la page -->
+        <div class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto">
+                        {{ form(form, {'attr': {'novalidate':'novalidate'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
