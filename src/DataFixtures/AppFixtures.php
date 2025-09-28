@@ -6,38 +6,37 @@ use App\Entity\Book;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
-        # Création d'un utilisateur
-        $user = new User();
-        $user->setEmail('hugo@actunews.com')
-            ->setFirstName('Hugo')
-            ->setLastName('Doe')
-            ->setPassword('demo')
-            ->setRoles(['ROLE_USER']);
+        // Création d'un admin ROLE_AUTHOR
+        $admin = new User();
+        $admin->setEmail('admin@author.com')
+            ->setFirstname('Admin')
+            ->setLastname('Author')
+            ->setRoles(['ROLE_AUTHOR'])
+            ->setPassword($this->hasher->hashPassword($admin, 'adminpass'));
+        $manager->persist($admin);
 
-        # Sauvegarde de l'utilisateur
+        // Création d'un user ROLE_USER
+        $user = new User();
+        $user->setEmail('user@user.com')
+            ->setFirstname('User')
+            ->setLastname('Normal')
+            ->setRoles(['ROLE_USER'])
+            ->setPassword($this->hasher->hashPassword($user, 'userpass'));
         $manager->persist($user);
 
-        # Création des livres
-        $genres = ['Roman', 'Essai', 'Poésie', 'BD', 'Science', 'Autre'];
-        for ($i = 0; $i < 50; $i++) {
-            $book = new Book();
-            $book->setTitle("Titre du livre n°$i")
-                ->setAuthor("Auteur $i")
-                ->setDescription('Description du livre exemple...')
-                ->setGenre($genres[array_rand($genres)])
-                ->setCoverImage('https://placehold.co/600x400')
-                ->setUser($user)
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setUpdatedAt(new \DateTimeImmutable());
-            $manager->persist($book);
-        }
-
-        # Déclenche l'enregistrement de toutes les données
         $manager->flush();
     }
 }

@@ -22,23 +22,15 @@
                         Bienvenue {{ app.user.firstname }} 😊 -
                     </span>
 
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_AUTHOR') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)    ">Administration</a>
+                            <a class="nav-link" href="javascript:void(0)">Administration</a>
                         </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('book_add') }}">Ajouter un livre</a>
-                        </li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-success text-white mx-2" href="{{ path('admin_article_rediger') }}">
-                                Rédiger un livre
-                            </a>
                         </li>
                     {% endif %}
 
