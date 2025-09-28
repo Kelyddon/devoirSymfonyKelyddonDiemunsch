@@ -35,10 +35,9 @@ Pour pouvoir ajouter, modifier ou supprimer, il faut être connecté.
 Le ROLE_USER peut écrire des livres ainsi que modifier ou supprimer si c'est lui qui les a écrits.
 Le ROLE_AUTHOR peut écrire des livres ainsi que modifier ou supprimer tous les livres.
 
-Le code du projet a été crée via le framework de ce qu'on avait fait en cours.
+Le code du projet a été crée via le framework symfony qu'on avait fait en cours.
 Plusieurs choses ont été modifiée à partir de celui-ci.
 Il y a eu suppressions des anciennes tables telle que post et category qui ont été remplacées par book.
 Il y a eu utilisations de l'ia pour débugage et connections de certaines parties du code.
-Les commandes vue en cours ont été utilisées pour la création de l'entité Book.
 
 L'ia n'a pas été utilisée pour rédiger le README.md.
