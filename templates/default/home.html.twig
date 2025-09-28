@@ -6,7 +6,7 @@
     <main>
         <!-- Titre de la page -->
         <div class="p-3 mx-auto text-center">
-            <h1 class="display-4">Actunews</h1>
+            <h1 class="display-4">BookManager</h1>
         </div>
 
         <!-- Filtrage par genre -->
@@ -33,14 +33,20 @@
         <div class="py-5 bg-light">
             <div class="container">
                 <div class="row">
-                    {% for book in books %}
-                        {#
-                            Pour chaque livre retourné par la BDD
-                            On inclut une card pour afficher le livre
-                            Ex. {{ dump(book) }}
-                        #}
-                        {% include 'partials/_card.html.twig' with { 'book': book } %}
-                    {% endfor %}
+                    {% if books|length == 0 %}
+                        <div class="col-12 text-center">
+                            <div class="alert alert-info">Aucun livre disponible pour le moment.</div>
+                        </div>
+                    {% else %}
+                        {% for book in books %}
+                            {#
+                                Pour chaque livre retourné par la BDD
+                                On inclut une card pour afficher le livre
+                                Ex. {{ dump(book) }}
+                            #}
+                            {% include 'partials/_card.html.twig' with { 'book': book } %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

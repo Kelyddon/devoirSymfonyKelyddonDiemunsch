@@ -30,8 +30,8 @@ class DefaultController extends AbstractController
         $genre = $request->query->get('genre');
         $qb = $bookRepository->createQueryBuilder('b');
         $user = $this->getUser();
-        if ($this->isGranted('ROLE_AUTHOR')) {
-            // Auteur ou admin : accès à tous les livres
+        if ($this->isGranted('ROLE_AUTHOR') || !$user) {
+            // Auteur, admin ou visiteur : accès à tous les livres
             if ($search) {
                 $qb->where('b.title LIKE :search')
                     ->setParameter('search', '%' . $search . '%');
@@ -44,7 +44,7 @@ class DefaultController extends AbstractController
                     ->setParameter('genre', $genre);
             }
         } else {
-            // Utilisateur : accès uniquement à ses livres
+            // Utilisateur connecté : accès uniquement à ses livres
             $qb->where('b.user = :user')
                 ->setParameter('user', $user);
             if ($search) {
