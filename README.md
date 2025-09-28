@@ -32,7 +32,7 @@ Il y a une seed de fixtures au niveau de la table User:
 
 Il est possible de regarder les livres sans avoir besoin de se connecter.
 Pour pouvoir ajouter, modifier ou supprimer, il faut être connecté.
-Le ROLE_USER peut écrire des livres et modifier ou supprimer les si c'est lui qui les a écrits.
+Le ROLE_USER peut écrire des livres ainsi que modifier ou supprimer si c'est lui qui les a écrits.
 Le ROLE_AUTHOR peut écrire des livres ainsi que modifier ou supprimer tous les livres.
 
 Le code du projet a été crée via le framework de ce qu'on avait fait en cours.
