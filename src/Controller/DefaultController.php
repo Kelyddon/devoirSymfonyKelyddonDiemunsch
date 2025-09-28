@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Category;
 use App\Entity\Book;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,16 +66,6 @@ class DefaultController extends AbstractController
             'search' => $search,
         ]);
     }
-    #[Route('/books/add', name: 'book_add', methods: ['GET', 'POST'])]
-    // -- Routes / Pages pour mes catégories
-
-    #[Route('/{slug:category}', name: 'default_category', methods: ['GET'])]
-    public function category(Category $category): Response
-    {
-        return $this->render('default/category.html.twig', [
-            'category' => $category,
-        ]);
-    }
 
     #[Route('/books/add', name: 'book_add', methods: ['GET', 'POST'])]
     public function addBook(Request $request, EntityManagerInterface $em): Response
@@ -104,7 +93,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/books/{id}', name: 'default_book', methods: ['GET'])]
+    #[Route('/books/{id}', name: 'book', methods: ['GET'])]
     public function book(BookRepository $bookRepository, string $id): Response
     {
         $book = $bookRepository->findOneBy(['id' => $id]);
@@ -123,6 +112,10 @@ class DefaultController extends AbstractController
         if (!$book) {
             throw $this->createNotFoundException('Livre non trouvé');
         }
+        $user = $this->getUser();
+        if ($book->getUser() !== $user && !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier ce livre.');
+        }
         $oldImage = $book->getCoverImage();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -139,13 +132,29 @@ class DefaultController extends AbstractController
             $book->setUpdatedAt(new \DateTimeImmutable());
             $em->flush();
             $this->addFlash('success', 'Livre modifié avec succès !');
-            return $this->redirectToRoute('default_home');
+            return $this->redirectToRoute('book', ['id' => $book->getId()]);
         }
         return $this->render('book/add.html.twig', [
             'form' => $form->createView(),
-            'edit' => true,
             'book' => $book,
         ]);
+    }
+
+    #[Route('/books/{id}/delete', name: 'book_delete', methods: ['POST'])]
+    public function deleteBook(Request $request, BookRepository $bookRepository, EntityManagerInterface $em, string $id): Response
+    {
+        $book = $bookRepository->find($id);
+        if (!$book) {
+            throw $this->createNotFoundException('Livre non trouvé');
+        }
+        $user = $this->getUser();
+        if ($book->getUser() !== $user && !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à supprimer ce livre.');
+        }
+        $em->remove($book);
+        $em->flush();
+        $this->addFlash('success', 'Livre supprimé avec succès !');
+        return $this->redirectToRoute('default_home');
     }
 
 

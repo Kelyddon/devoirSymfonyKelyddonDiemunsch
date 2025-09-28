@@ -11,7 +11,7 @@
                     <!-- En-tête de l'article -->
                     <header class="mb-5">
                         <div class="mb-3">
-                            <span class="badge bg-primary me-2">{{ book.category.name }}</span>
+                            <span class="badge bg-primary me-2">{{ book.genre }}</span>
                             <small class="text-muted">{{ book.createdAt | date('d/m/Y') }}</small>
                         </div>
                         <h1 class="display-4 fw-bold mb-3">
@@ -38,6 +38,13 @@
                     <div class="article-content">
                         {{ book.description | raw }}
                     </div>
+
+                    {% if app.user and (book.user == app.user or is_granted('ROLE_ADMIN')) %}
+                        <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-warning">Modifier</a>
+                        <form method="post" action="{{ path('book_delete', {'id': book.id}) }}" style="display:inline;" onsubmit="return confirm('Confirmer la suppression ?');">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    {% endif %}
                 </article>
             </div>
         </div>
