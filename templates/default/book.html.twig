@@ -27,7 +27,7 @@
 
                     <!-- Image principale -->
                     <figure class="mb-5">
-                        <img src="{{ book.coverImage }}"
+                        <img src="{{ book.coverImage starts with 'http' ? book.coverImage : '/uploads/covers/' ~ book.coverImage }}"
                              alt="{{ book.title }}" class="img-fluid rounded shadow">
                         <figcaption class="figure-caption text-center mt-2">
                             {{ book.title }}

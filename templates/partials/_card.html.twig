@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="card">
-                    <img src="{{ book.coverImage }}"
+                    <img src="{{ book.coverImage starts with 'http' ? book.coverImage : '/uploads/covers/' ~ book.coverImage }}"
                          class="card-img-top mt-2"
                          alt="{{ book.title }}">
                     <div class="card-body">
