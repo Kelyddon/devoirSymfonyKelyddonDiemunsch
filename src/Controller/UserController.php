@@ -19,17 +19,17 @@ class UserController extends AbstractController
                              EntityManagerInterface $entityManager,
                              UserPasswordHasherInterface $passwordHasher): Response
     {
-        # Création d'un nouvel utilisateur
+
         $user = new User();
 
-        # Création du formulaire
+
         $form = $this->createForm(UserRegisterType::class, $user)
             ->handleRequest($request);
 
-        # Traitement du formulaire
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            # Hachage du mot de passe
+
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -37,19 +37,19 @@ class UserController extends AbstractController
                 )
             );
 
-            # Sauvegarde dans la BDD
+
             $entityManager->persist($user);
             $entityManager->flush();
 
-            # Notification Flash
+
             $this->addFlash('success', "Félicitation vous pouvez vous connecter.");
 
-            # Redirection page connexion
+
             return $this->redirectToRoute('app_login');
 
         }
 
-        # Création de la vue et passage du formulaire
+
         return $this->render('user/register.html.twig', [
             'form' => $form
         ]);

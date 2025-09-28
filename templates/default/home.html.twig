@@ -39,11 +39,6 @@
                         </div>
                     {% else %}
                         {% for book in books %}
-                            {#
-                                Pour chaque livre retourné par la BDD
-                                On inclut une card pour afficher le livre
-                                Ex. {{ dump(book) }}
-                            #}
                             {% include 'partials/_card.html.twig' with { 'book': book } %}
                         {% endfor %}
                     {% endif %}

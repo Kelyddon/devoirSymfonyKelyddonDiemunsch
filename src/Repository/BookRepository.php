@@ -55,7 +55,7 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recherche les livres par genre et par titre
+     * Recherche les livres par genre et/ou par titre
      */
     public function findByGenreAndTitle(?string $genre, ?string $search): array
     {

@@ -44,7 +44,7 @@ class DefaultController extends AbstractController
                     ->setParameter('genre', $genre);
             }
         } else {
-            // Utilisateur connecté : accès uniquement à ses livres
+            // Si un utilisateur est connécté : accès uniquement à ses livres
             $qb->where('b.user = :user')
                 ->setParameter('user', $user);
             if ($search) {

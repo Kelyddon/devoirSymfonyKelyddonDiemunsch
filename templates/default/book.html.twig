@@ -39,7 +39,7 @@
                         {{ book.description | raw }}
                     </div>
 
-                    {# Les boutons Modifier/Supprimer sont affichés uniquement si l'utilisateur est connecté et autorisé #}
+                    <!-- Les boutons Modifier/Supprimer sont affichés si l'utilisateur est connecté et autorisé -->
                     {% if app.user and (book.user == app.user or is_granted('ROLE_AUTHOR')) %}
                         <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-warning">Modifier</a>
                         <form method="post" action="{{ path('book_delete', {'id': book.id}) }}" style="display:inline;" onsubmit="return confirm('Confirmer la suppression ?');">
